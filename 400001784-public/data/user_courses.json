@@ -1,0 +1,20 @@
+
+[
+	{
+		"email":"sam@gmail.com",
+		"course_id":"12"
+	},
+	{
+		"email":"tester@comp3170.com",
+		"course_id":"1"
+	},
+	{
+		"email":"tester@comp3170.com",
+		"course_id":"4"
+	},
+	{
+		"email":"tester@comp3170.com",
+		"course_id":"7"
+	}
+]
+
