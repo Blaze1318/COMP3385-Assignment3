@@ -1,16 +1,25 @@
 <?php
 	use Framework\DataMapper;
-	use Framework\UsersObject;
+	use Framework\DomainObject;
+    use Framework\SessionClass;
 	class UsersMapper extends DataMapper
 	{
 
-		public function find(int $id): DomainObject
+		public function find(string $id): DomainObject
 		{
 			$stmt = $this->pdo->prepare("SELECT * FROM users WHERE email ='".$id."'");
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $res = $stmt->fetchAll();
-            $user = new UsersObject($res[0]["name"], $res[0]["email"], $res[0]["password"]);
+            if($res != array())
+            {
+                 $user = new UsersObject($res[0]["name"], $res[0]["email"], $res[0]["password"]);
+            }
+            else
+            {
+                $user = new UsersObject("","","");
+            }
+           
             return $user;
 		}
 

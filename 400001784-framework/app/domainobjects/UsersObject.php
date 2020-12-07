@@ -19,7 +19,7 @@
             return $this->usersEmail;
         }
 
-        public function getPass() {
+        public function getPassword() {
             return $this->usersPassword;
         }
     }

@@ -1,6 +1,7 @@
 <?php  
 use Framework\Controller;
 use Framework\View;
+use Framework\DataMapper;
 class CoursesController extends Controller
 { 
 	public function run():void
@@ -10,11 +11,12 @@ class CoursesController extends Controller
        {
             if($this->sessionManager->accessible($_SESSION["LoggedIn"],"courses.php"))
             {
-                	$this->setModel(new CoursesModel());
+                	//$this->setModel(new CoursesModel());
+                  $this->setMapper(new CourseMapper());
 					        $this->setView(new View);
 					        $this->getView()->setTemplate("../../400001784-framework/tpl/courses.tpl.php");
-					        $this->getModel()->makeConnection();
-					        $this->getView()->addVar("courses",$this->getModel()->findCourses());
+					        //$this->getModel()->makeConnection();
+					        $this->getView()->addVar("courses",$this->getMapper()->findCourses());
 					        $this->responseHandler->getHeader()->setData("Header", "Normal");
        			      $this->responseHandler->getState()->setData("State", "Normal");
        			      $this->responseHandler->getLogResponse()->setData("Logger", "Courses Page visited");

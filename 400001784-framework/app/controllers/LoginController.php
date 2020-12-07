@@ -1,6 +1,7 @@
 <?php  
 use Framework\Controller;
 use Framework\View;
+use Framework\DataMapper;
     class LoginController extends Controller
     {
         public function run():void
@@ -21,17 +22,18 @@ use Framework\View;
             {
                 $email = $this->commandContext->get("email");
                 $password = $this->commandContext->get("password");
-                $this->setModel(new UsersModel);
+               // $this->setModel(new UsersModel);
+                $this->setMapper(new UsersMapper());
                 $this->setView(new View);
                 $this->getView()->setTemplate("../../400001784-framework/tpl/login.tpl.php");
-                $this->getModel()->makeConnection();
-                $user = $this->getModel()->findRecord($email);
-                if($user == array())
+               // $this->getModel()->makeConnection();
+                $user = $this->getMapper()->find($email);
+                if($user->getEmail() == "")
                 {
                     $this->getView()->addVar("loginError","Invalid email/password is empty");
                     $this->getView()->display();
                 }
-                elseif(!password_verify($password,$user[0]["password"]))
+                elseif(!password_verify($password,$user->getPassword()))
                 {
                     $this->getView()->addVar("loginError","Invalid email/password");
                     $this->getView()->display();
@@ -40,7 +42,7 @@ use Framework\View;
                 {
 
                     $this->sessionManager->create();
-                    $this->sessionManager->add("LoggedIn",$user[0]["email"]);
+                    $this->sessionManager->add("LoggedIn",$user->getEmail());
                     $this->responseHandler->getHeader()->setData("Header", "Normal");
                     $this->responseHandler->getState()->setData("State", "Normal");
                     $this->responseHandler->getLogResponse()->setData("Logger", "User Added to the database");

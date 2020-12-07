@@ -1,11 +1,11 @@
 <?php
 	use Framework\DataMapper;
 	use Framework\CourseObject;
-
+	use Framework\DomainObject;
 	class CourseMapper extends DataMapper
 	{
 
-		public function find(int $id): DomainObject
+		public function find(string $id): DomainObject
 		{
 			$sql = "SELECT courses.course_name, courses.course_description, courses.course_image, instructors.instructor_name 
 				FROM courses 

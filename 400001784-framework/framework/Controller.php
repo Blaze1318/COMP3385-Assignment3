@@ -8,15 +8,27 @@ abstract class Controller
 	protected $validator;
 	protected $responseHandler;
 	protected $sessionManager;
+	protected $mapper;
 
 	function __construct()
 	{
 		$this->model = null;
 		$this->view = null;
+		$this->mapper = null;
 		$this->commandContext = null;
-		$this->validator = Validator::getInstance();
+		$this->validator = Registry::instance()->makeValidator();
 		$this->responseHandler = ResponseHandler::getInstance();
-		$this->sessionManager = SessionClass::getInstance();
+		$this->sessionManager = Registry::instance()->getSession();
+	}
+
+	public function setMapper(DataMapper $m)
+	{
+		$this->mapper = $m;
+	}
+
+	public function getMapper()
+	{
+		return $this->mapper;
 	}
 
 	public function setModel(Model $m)

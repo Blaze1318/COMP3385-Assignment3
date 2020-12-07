@@ -1,6 +1,7 @@
 <?php  
 use Framework\Controller;
 use Framework\View;
+use Framework\DataMapper;
     class SignupController extends Controller
     {
         public function run():void
@@ -35,11 +36,13 @@ use Framework\View;
 
                 if($errors == array())
                 {
-                  $this->setModel(new UsersModel());
-                  $this->getModel()->makeConnection();
+                 // $this->setModel(new UsersModel());
+                 // $this->getModel()->makeConnection();
+                  $this->setMapper(new UsersMapper());
                   $this->sessionManager->create();
                   $this->sessionManager->add("success","Sign Up Successful. Please login below");
-                  $this->getModel()->registerUsers($fullname,$email,password_hash($password, PASSWORD_DEFAULT));
+                  $newUser = new UsersObject($fullname,$email,password_hash($password, PASSWORD_DEFAULT));
+                  $this->getMapper()->insert($newUser);
                   $this->responseHandler->getHeader()->setData("Header", "Normal");
                   $this->responseHandler->getState()->setData("State", "Normal");
                   $this->responseHandler->getLogResponse()->setData("Logger", "User Added to the database");

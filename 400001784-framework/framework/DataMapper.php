@@ -1,4 +1,5 @@
 <?php
+	namespace Framework;
 	abstract class DataMapper
 	{
 		protected $pdo;
@@ -8,7 +9,7 @@
 			$this->pdo = $dbconnect->createConnection();
 		}
 
-		abstract public function find(int $id): DomainObject;
+		abstract public function find(string $id): DomainObject;
         abstract public function findAll(): array;
 		abstract public function insert(DomainObject $obj): void;
 		abstract public function update(DomainObject $object);

@@ -1,6 +1,7 @@
 <?php
 use Framework\Controller;
 use Framework\View;
+use Framework\DataMapper;
     class ProfileController extends Controller
     {
         public function run():void
@@ -11,11 +12,12 @@ use Framework\View;
                  if($this->sessionManager->accessible($_SESSION["LoggedIn"],"profile.php"))
                  {
                      
-                     $this->setModel(new UsersModel());
+                    // $this->setModel(new UsersModel());
+                     $this->setMapper(new UsersMapper());
                      $this->setView(new View);
                      $this->getView()->setTemplate("../../400001784-framework/tpl/profile.tpl.php");
-                     $this->getModel()->makeConnection();
-                     $this->getView()->addVar("mycourses",$this->getModel()->getCourses());
+                    // $this->getModel()->makeConnection();
+                     $this->getView()->addVar("mycourses",$this->getMapper()->getCourses());
                      $this->responseHandler->getHeader()->setData("Header", "Normal");
                      $this->responseHandler->getState()->setData("State", "Normal");
                      $this->responseHandler->getLogResponse()->setData("Logger", "User Profile page visited");

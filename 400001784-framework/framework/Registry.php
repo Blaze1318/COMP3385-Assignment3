@@ -1,4 +1,5 @@
 <?php 
+namespace Framework;
 	class Registry
 	{
 		private static $instance = null;
@@ -8,16 +9,18 @@
 		
 		public static function instance(): self
 		{
-			if (is_null(self::$instance))
+			if (is_null(self::$instance)){
 				self::$instance = new self();
 			}
+			
 			return self::$instance;
 		}
 		public function getSession (): SessionClass
 		{
-			if (is_null($this->session))
+			if (is_null($this->session)){
 				$this->session = new SessionClass();
 			}
+			
 			return $this->session;
 		}
 
@@ -28,12 +31,12 @@
 			{
 				$this->validator = new Validator();
 			}
-		}
+		
 			return $this->validator;
 		}
-		public function doConfiguration (): array
+		public function getConfig (): array
 		{
-			if (is_null($this->config))
+			if (is_null($this->dbconfig))
 			{
 				$config = parse_ini_file("../../400001784-framework/config/dbconfig.ini");
        		    $servername = $config["servername"];

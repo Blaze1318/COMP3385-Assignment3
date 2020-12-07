@@ -1,6 +1,7 @@
 <?php
 	use Framework\DataMapper;
 	use Framework\StreamsObject;
+    use Framework\DomainObject;
 	class StreamsMapper extends DataMapper
 	{
 
@@ -42,7 +43,7 @@
                     INNER JOIN instructors ON stream_instructor.instructor_id = instructors.instructor_id 
                     ORDER BY streams.stream_name DESC
                     LIMIT 8";
-            $stmt = $this->databaseConnection->prepare($sql);
+            $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             return $stmt->fetchAll();
