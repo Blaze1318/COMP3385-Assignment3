@@ -4,7 +4,7 @@
 		private static $instance = null;
 		private $session;
 		private $validator = null;
-		private $config = null;
+		private $dbconfig = null;
 		
 		public static function instance(): self
 		{
@@ -13,7 +13,7 @@
 			}
 			return self::$instance;
 		}
-		public function getSession (): Session
+		public function getSession (): SessionClass
 		{
 			if (is_null($this->session))
 				$this->session = new SessionClass();
@@ -26,18 +26,23 @@
 		{
 			if (is_null ($this->validator))
 			{
-				$this->validator = new Validator($this->config->get('rules'));
+				$this->validator = new Validator();
 			}
 		}
-		return $this->validator;
+			return $this->validator;
 		}
-		public function doConfiguration (): Configurator
+		public function doConfiguration (): array
 		{
 			if (is_null($this->config))
 			{
-				$this->config = new Configurator();
+				$config = parse_ini_file("../../400001784-framework/config/dbconfig.ini");
+       		    $servername = $config["servername"];
+                $username = $config["username"];
+                $password = $config["password"];
+                $dbname = $config["dbname"];
+                $this->dbconfig = array("servername"=>$servername, "username"=>$username, "password"=>$password, "dbname"=>$dbname);
 			}
-			return $this->config;
+			return $this->dbconfig;
 		}
 }
 ?>

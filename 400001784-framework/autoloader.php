@@ -7,6 +7,8 @@
             $absolutepath ."app/controllers/" . $class. ".php",
              $absolutepath ."app/" . $class . ".php",
             $absolutepath ."app/models/" . $class . ".php",
+             $absolutepath ."app/domainobjects/" . $class . ".php",
+             $absolutepath ."app/mappers/" . $class . ".php",
             $absolutepath ."app/commands/" . $class . ".php",
             $absolutepath ."framework/" . $class . ".php",
             $absolutepath ."config/" . $class . ".php",
